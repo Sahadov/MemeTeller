@@ -55,7 +55,7 @@ struct MainView: View {
                 ResultView(showResultView: $viewModel.showResultView, question: $viewModel.question)
         }
         .fullScreenCover(isPresented: $viewModel.showHistoryView) {
-            HistoryView()
+            HistoryView(showHistoryView: $viewModel.showHistoryView)
         }
     }
 }

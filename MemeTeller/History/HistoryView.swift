@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HistoryView: View {
     @StateObject var viewModel = HistoryViewModel()
+    @Binding var showHistoryView: Bool
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -19,10 +20,19 @@ struct HistoryView: View {
                     .offset(x: 50, y: -150)
                     .opacity(0.7)
             }
+            Button {
+                showHistoryView.toggle()
+            } label: {
+                Image(systemName: "arrow.backward")
+                    .foregroundStyle(.blue)
+                    .fontWeight(.semibold)
+            }
+            .offset(x: 15, y: -10)
             Text("History")
                 .font(.title)
                 .padding()
                 .foregroundStyle(.blue)
+                .offset(y: 30)
             
             List() {
                 ForEach(viewModel.questions, id: \.self) { question in
@@ -45,17 +55,13 @@ struct HistoryView: View {
                     }
                     
                 }
-                .onDelete {_ in
-                }
-                .tint(.blue)
+                .onDelete(perform: viewModel.deleteQuestion)
             }
             .listStyle(.plain)
-            .offset(y:70)
+            .offset(y:90)
         }
         
     }
 }
 
-#Preview {
-    HistoryView()
-}
+
