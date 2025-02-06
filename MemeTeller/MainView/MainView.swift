@@ -12,7 +12,23 @@ struct MainView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation(.easeInOut(duration: 1.5)) {
+                        viewModel.showHistoryView.toggle()
+                    }
+                } label: {
+                    Text("💎")
+                        .foregroundStyle(.white)
+                        .font(.title)
+                }
+                .padding()
+            }
+            .offset(y: 50)
+            
             Spacer()
+            
             TextField("Задай вопрос и узнай свое будущее", text: $viewModel.question)
                 .padding()
                 .background(.white)
@@ -20,7 +36,7 @@ struct MainView: View {
                 .foregroundStyle(.blue)
                 .padding()
             Button {
-                withAnimation(.easeInOut) {
+                withAnimation(.easeInOut(duration: 1.5)) {
                     viewModel.showResultView.toggle()
                 }
             } label: {
@@ -36,7 +52,10 @@ struct MainView: View {
         .ignoresSafeArea()
         .background(.blue)
         .fullScreenCover(isPresented: $viewModel.showResultView) {
-            ResultView(question: viewModel.question)
+                ResultView(showResultView: $viewModel.showResultView, question: $viewModel.question)
+        }
+        .fullScreenCover(isPresented: $viewModel.showHistoryView) {
+            HistoryView()
         }
     }
 }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ResultView: View {
     @StateObject var viewModel = ResultViewController()
-    var question: String
+    @Binding var showResultView: Bool
+    @Binding var question: String
     
         
         var body: some View {
@@ -43,13 +44,36 @@ struct ResultView: View {
                                     image.resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .cornerRadius(15)
-                                        .frame(maxWidth: 300, maxHeight: 450)
+                                        .padding(30)
+                                    
+                                        
                                 },
                                 placeholder: {
                                     ProgressView()
                                 }
                             )
                             .shadow(radius: 10)
+                            HStack(spacing: 30) {
+                                Button {
+                                        withAnimation(.easeInOut(duration: 1.5)) {
+                                            StorageManager.shared.addQuestion(Question(question: question, answerImage: viewModel.chosenMeme))
+                                            question = ""
+                                            showResultView.toggle()
+                                    }
+                                } label: {
+                                    Text("👍")
+                                        .font(.largeTitle)
+                                }
+                                
+                                Button {
+                                        withAnimation(.easeInOut(duration: 1.5)) {
+                                            viewModel.updateMeme()
+                                        }
+                                } label: {
+                                    Text("👎")
+                                        .font(.largeTitle)
+                                }
+                            }
                             .onTapGesture {
                                 withAnimation(.easeInOut(duration: 1.5)) {
                                     viewModel.selectedImage = nil

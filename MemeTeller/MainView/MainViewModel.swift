@@ -10,4 +10,5 @@ import Foundation
 class MainViewModel: ObservableObject {
     @Published var question: String = ""
     @Published var showResultView = false
+    @Published var showHistoryView = false
 }

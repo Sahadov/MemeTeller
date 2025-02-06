@@ -27,12 +27,15 @@ class ResultViewController: ObservableObject {
                 case .success(let memes):
                     self?.memes = memes
                     self?.chosenMeme = memes.randomElement()?.url ?? ""
-                    print(self?.chosenMeme)
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                 }
             }
         }
         
+    }
+    
+    func updateMeme() {
+        chosenMeme = memes.randomElement()?.url ?? ""
     }
 }
