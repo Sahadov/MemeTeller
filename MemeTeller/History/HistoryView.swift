@@ -15,7 +15,7 @@ struct HistoryView: View {
         ZStack(alignment: .topLeading) {
             HStack {
                 Spacer()
-                Text("🧿")
+                Text("🧿 )))")
                     .font(.system(size: 200))
                     .offset(x: 50, y: -150)
                     .opacity(0.7)
